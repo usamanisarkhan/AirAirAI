@@ -11,7 +11,7 @@ The application is designed to demonstrate the power of decoupled AI tools. The 
 - **Interactive Flight Cards**: Select flights directly from the chat stream.
 - **Email Ticketing**: Automated ticket simulation sent to the user's email.
 - **Premium Design**: Glassmorphic UI, Inter/Outfit typography, and a modern agentic dashboard.
-  [![Video Title](https://img.youtube.com/vi/MPU4Mxg5Syo.jpg)](https://youtu.be/MPU4Mxg5Syo)
+  [![MCP Server DEMO](https://img.youtube.com/vi/MPU4Mxg5Syo.jpg)](https://youtu.be/MPU4Mxg5Syo)
 
 ---
 
@@ -20,30 +20,6 @@ The application is designed to demonstrate the power of decoupled AI tools. The 
 The app uses a layered MCP architecture with SSE (Server-Sent Events) for real-time tool execution.
 
 ### High-Level Diagram
-
-```mermaid
-graph TD
-    subgraph "Frontend (Client)"
-        UI[React UI]
-        Agent[Agentic Logic]
-        MCPClient[MCP Client SDK]
-        UI --> Agent
-        Agent --> MCPClient
-    </div>
-
-    subgraph "Backend (MCP Server)"
-        MCPServer[MCP Server SDK]
-        Tools[Flight Tools]
-        DB[(Mock Flight DB)]
-        Email[Email Service]
-        MCPServer --> Tools
-        Tools --> DB
-        Tools --> Email
-    </div>
-
-    MCPClient <== "SSE" ==> MCPServer
-```
-
 ![Architecture Diagram](architecture.png)
 
 ---
