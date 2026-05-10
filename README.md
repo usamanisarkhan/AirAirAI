@@ -11,7 +11,7 @@ The application is designed to demonstrate the power of decoupled AI tools. The 
 - **Interactive Flight Cards**: Select flights directly from the chat stream.
 - **Email Ticketing**: Automated ticket simulation sent to the user's email.
 - **Premium Design**: Glassmorphic UI, Inter/Outfit typography, and a modern agentic dashboard.
-  [![Video Title](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://youtu.be/MPU4Mxg5Syo)
+  [![Video Title](https://img.youtube.com/vi/MPU4Mxg5Syo.jpg)](https://youtu.be/MPU4Mxg5Syo)
 
 ---
 
