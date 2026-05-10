@@ -1,0 +1,46 @@
+# PROMPT FOR CREATING THE AIRAIR FLIGHT BOOKING AGENT
+
+Build a premium, full-stack flight search and booking application using the Model Context Protocol (MCP). The application must feature an "Agentic Chat-First" interface where the primary interaction occurs through a conversational AI assistant that uses MCP tools to perform actions.
+
+## 1. ARCHITECTURE REQUIREMENTS (MCP)
+- **Decoupled Architecture**: Implement a separate MCP Server (Backend) and MCP Client (Frontend).
+- **Communication Protocol**: Use Server-Sent Events (SSE) for the transport layer between the client and server.
+- **Session Management**: The MCP server must support multiple concurrent sessions. For every new SSE connection, instantiate a unique MCP `Server` instance to avoid "Already connected" errors and ensure state isolation.
+- **Stream Stability**: Ensure the MCP server does *not* use global body-parsing middleware (like `express.json()`) on the SSE/Messages routes, as this can consume the request stream and prevent the MCP SDK from reading tool call arguments (resulting in "stream is not readable" errors).
+
+## 2. BACKEND: MCP SERVER (Node.js/Express)
+- **Technology Stack**: Node.js, Express, `@modelcontextprotocol/sdk`, `zod`, `tsx` (for execution).
+- **Mock Database**: Include a hardcoded list of flights with: `id`, `from`, `to`, `price`, `date`, `time`, and `airline`.
+- **Tools to Implement**:
+    - `search_flights(from, to)`: Returns a filtered JSON list of matching flights.
+    - `book_flight(flightId, passengerName, email)`: Validates the flight, records a booking with a unique reference ID (e.g., `BK-XXXX`), and simulates sending a ticket email.
+- **Email Simulation**: Use a library like `nodemailer` or simple console logging to simulate sending a ticket to the provided email address upon successful booking.
+
+## 3. FRONTEND: AGENTIC INTERFACE (React/Vite)
+- **Technology Stack**: React (Vite), `@modelcontextprotocol/sdk`, `lucide-react` (icons), Vanilla CSS.
+- **Design System**: 
+    - **Aesthetics**: Premium, modern, and "airy" (Sky blues, soft grays, high-quality white space).
+    - **Layout**: A two-pane layout. A main "Chat Area" for the agent and a "Sidebar" for the active booking summary.
+    - **Components**: Use glassmorphism for bubbles, smooth transitions (fade-in), and custom typing indicators.
+- **Agent Logic**: 
+    - The agent should be conversational and "intelligent." It should parse natural language for flight intents (e.g., "Find flights to Dubai").
+    - **Interactive Cards**: When flights are found, display them as interactive "Flight Cards" *inside* the chat bubble. Each card should have a "Select" button.
+    - **Multi-step Flow**: 
+        1. Agent greets user. 
+        2. User searches (Agent calls `search_flights`). 
+        3. User selects a flight (Agent updates internal state). 
+        4. Agent proactively asks for the user's email. 
+        5. User provides email (Agent calls `book_flight`). 
+        6. Agent shows a "Success" state with the booking ID.
+
+## 4. UI/UX DETAILS
+- **Fonts**: Use 'Inter' or 'Outfit' from Google Fonts for a premium look.
+- **Icons**: Use `Plane`, `Send`, `CheckCircle`, `Bot`, and `User` icons effectively.
+- **Feedback**: Include a "Typing Indicator" (Agent is thinking...) to make the interaction feel alive and responsive.
+- **Sidebar**: The sidebar should update in real-time to show the `Selected Flight` and `Price` once the user clicks "Select" in the chat.
+
+## 5. TECHNICAL CONSTRAINTS
+- Port 3001 for the MCP Server.
+- Port 5173/5174 for the Client.
+- Proper CORS configuration to allow cross-origin tool calls.
+- Full ESM support (use `"type": "module"` in `package.json`).

@@ -1,0 +1,10 @@
+node_modules
+dist
+.env
+*.log
+.DS_Store
+.vscode
+client/node_modules
+client/dist
+mcp-server/node_modules
+mcp-server/dist
